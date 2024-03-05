@@ -12,10 +12,17 @@
     outline: none; 
   }
 
-  .button:focus {
+  button:focus {
     outline: none;
     border: none;
   }
+
+    input {
+        outline: none;
+        border: none;
+    }
+
+
 
 /* NAVBAR */
 .navbar {
@@ -58,8 +65,8 @@
     background-color: var(--blue);
   }
   
-  .logo {
-    max-height: 100%;
+  .homeLogo {
+    Height: 100%;
   }
   
   .titleContainer {

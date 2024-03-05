@@ -53,7 +53,7 @@ import {tabs} from '../assets/tabs';
 
 interface Props {
   activeTab: Tab | null;
-  setActiveTab: (tab: Tab) => void;
+  setActiveTab: (tab: Tab | null) => void;
 }
 
 
@@ -69,6 +69,7 @@ const Navbar = ({ activeTab, setActiveTab }: Props) => {
             className={styles.navbarIcon}
             onClick={() => setActiveTab(tab)}
             onMouseEnter={() => setActiveTab(tab)}
+            onMouseLeave={() => setActiveTab(null)}
           >
             {tab.title}
           </button>

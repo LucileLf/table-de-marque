@@ -128,7 +128,7 @@ export default function Home() {
       {/* LOGO */}
       <div className={styles.logoContainer}>
         <img
-          className={styles.logo}
+          className={styles.homeLogo}
           src={logoPath}
           alt="Logo"
         />
