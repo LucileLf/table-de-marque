@@ -11,14 +11,19 @@ export interface Tab {
 }
 
 export function App() {
+  const tabtest: Tab = {
+    ref: 'hymnes',
+    title: 'Hymnes',
+    imageTitle: 'hymns'
+  };
+  const [activeTab, setActiveTab] = useState<Tab | null>(tabtest);
 
-  const [activeTab, setActiveTab] = useState<Tab | null>(null);
-
+  
   return(
     <>
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab}/>
-      <Home/>
-      {/* <TabContent activeTab={activeTab}></TabContent> */}
+      {/* <Home/> */}
+      <TabContent activeTab={activeTab}></TabContent>
       {/* {activeTab ? (
       <TabContent activeTab={activeTab}></TabContent>
       ) : <Home/>} */}

@@ -48,6 +48,7 @@
     justify-content: center;
     margin-top: 10vh;
   }
+
   
   .logoContainer {
     height: 40%;
@@ -246,20 +247,30 @@
   /* TABCONTENT */
   
   .tabContentContainer  {
-    flex: 1 1 90%;
+    background-color: var(--blue);
+    /* border: '1px solid green'; */
+    /* flex: 1 1 90%;
     overflow: auto;
-    border: '1px solid yellow'
+    border: '1px solid yellow' */
+    height: 90vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 10vh;
   }
   
-  .logoContainer {
-    margin-top: 5px;
+  /* .logoContainer {
     align-items: center;
     justify-content: center;
-  }
+  } */
   
   .logo {
-    width: 300px;
-    height: 300px;
+    /* width: 300px; */
+    height: 70%;
+    width: auto;
+    overflow: hidden;
   }
   
   .rotatedLogo {
@@ -271,8 +282,21 @@
     align-items: center;
     justify-content: center;
   }
+
+  /* .title {
+    color: white; 
+    font-size: large;
+    font-weight: bolder;
+  } */
   
   .zzzContainer {
     padding: 10px;
+  }
+  .zzz{
+    color: white; 
+    font-size: large;
+    font-weight: bolder;
+    right: 10%;
+    top: 10%;
   }
   
