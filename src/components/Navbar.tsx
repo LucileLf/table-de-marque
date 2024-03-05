@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tab } from '../App'
 import styles from '../styles.module.css';
-import tabs from '../assets/tabs';
+import {tabs} from '../assets/tabs';
 
 // const tab1: Tab = {
 //   ref: 'home',
