@@ -1,7 +1,7 @@
 import React from "react";
 import logoPath from "../../src/images/logo.png";
 import colors from "../colors.module.css";
-import { Team } from "./Home";
+import { Team } from "./GameTracker";
 
 interface Props {
   winningTeam: Team;

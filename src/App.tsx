@@ -1,14 +1,24 @@
-import { useState } from 'react'
-import Home from './components/Home'
+import { useEffect, useState } from 'react'
+import GameTracker from './components/GameTracker'
 import Navbar from './components/Navbar'
 import TabContent from './components/TabContent'
-
+import GameSetup from './components/GameSetup'
+import { GameInfo, GameState } from './types'
 
 export interface Tab {
-  ref: string, 
+  ref: string,
   title: string,
   imageTitle: string
 }
+
+
+const initialGameState: GameState = {
+  gameName: '',
+  nbrOfTeams: 0,
+  teams: [],
+  isOn: false,
+};
+
 
 export function App() {
   // const tabtest: Tab = {
@@ -17,46 +27,50 @@ export function App() {
   //   imageTitle: 'hymns'
   // };
   const [activeTab, setActiveTab] = useState<Tab | null>(null);
+  const [gameState, setGameState] = useState<GameState>(initialGameState);
 
-  
-  return(
+  console.log('gameState',gameState);
+
+  useEffect(() => {
+    const storedState = localStorage.getItem('gameState');
+    if (storedState) {
+      const parsedState: GameState = JSON.parse(storedState);
+      if (parsedState.isOn) {
+        setGameState(parsedState);
+      }
+    }
+  }, []);
+
+  const startGame = (gameInfo: GameInfo): void => {
+    const newGameState = { ...gameInfo, isOn: true };
+    setGameState(newGameState);
+    console.log('from app', newGameState);
+    localStorage.setItem('gameState', JSON.stringify(newGameState));
+  };
+
+  const endGame = (): void => {
+    localStorage.removeItem('gameState');
+    setGameState(initialGameState);
+  };
+
+
+
+  return (
     <>
-      <Navbar activeTab={activeTab} setActiveTab={setActiveTab}/>
-      {/* <Home/> */}
-      {/* <TabContent activeTab={activeTab}></TabContent> */}
-      {activeTab ? (
-      <TabContent activeTab={activeTab}></TabContent>
-      ) : <Home/>}
+      {gameState.isOn ? (
+        <>
+          <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
+          {activeTab ? (
+            <TabContent activeTab={activeTab} />
+          ) : (
+            <GameTracker gameState={gameState} endGame={endGame} />
+          )}
+        </>
+      ) : (
+        <GameSetup startGame={startGame} />
+      )}
     </>
-  )
+  );
 };
-
-//   const [count, setCount] = useState(0)
-
-//   return (
-//     <div className="App">
-//       <div>
-//         <a href="https://vitejs.dev" target="_blank">
-//           <img src="/vite.svg" className="logo" alt="Vite logo" />
-//         </a>
-//         <a href="https://reactjs.org" target="_blank">
-//           <img src={reactLogo} className="logo react" alt="React logo" />
-//         </a>
-//       </div>
-//       <h1>Vite + React</h1>
-//       <div className="card">
-//         <button onClick={() => setCount((count) => count + 1)}>
-//           count is {count}
-//         </button>
-//         <p>
-//           Edit <code>src/App.tsx</code> and save to test HMR
-//         </p>
-//       </div>
-//       <p className="read-the-docs">
-//         Click on the Vite and React logos to learn more
-//       </p>
-//     </div>
-//   )
-// }
 
 export default App

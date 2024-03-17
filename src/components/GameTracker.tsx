@@ -1,3 +1,8 @@
+//GET ELEMENTS FROM GAMESTATE!
+
+
+
+
 import React, { useState, useEffect } from "react";
 import { FaFontAwesome } from "react-icons/fa";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
@@ -10,15 +15,14 @@ import penaltyYes from "../../src/images/penalty-red.png";
 import penaltyNo from "../../src/images/penalty-dark.png";
 import GameOver from "./GameOver";
 import Colors from "../../constants/Colors";
+import { GameInfo, GameState, Team } from '../types'
 
-export interface Team {
-  name: string;
-  score: number;
-  penalties: boolean[];
+interface GameTrackerProps {
+  gameState: GameState,
+  endGame: () => void;
 }
 
-export default function Home() {
-  const [title, setTitle] = useState("");
+export default function GameTracker({ gameState, endGame }: GameTrackerProps) {
   const [time, setTime] = useState(50 * 60); // 50 minutes
   const [isRunning, setIsRunning] = useState(false);
   //const [placeholderVisible, setPlaceholderVisible] = useState(true);
@@ -27,6 +31,9 @@ export default function Home() {
     team1: true,
     team2: true,
   });
+
+  // console.log('game state from app', gameState);
+
 
   const handleInputFocus = (inputType: string) => {
     setPlaceholdersVisible((prevState) => ({
@@ -56,7 +63,7 @@ export default function Home() {
     penalties: [false, false, false],
   });
 
-  const [gameIsOver, setGameIsOver] = useState(false);
+  const [gameIsOver, setGameIsOver] = useState(false)
 
   useEffect(() => {
     if (time > 0 && isRunning) {
@@ -154,10 +161,16 @@ export default function Home() {
       {/* LOGO */}
       <div className={styles.logoContainer}>
         <img className={styles.homeLogo} src={logoPath} alt="Logo" />
+        <button onClick={endGame} style={{color: 'red'}}>TERMINER LA PARTIE</button>
       </div>
 
       {/* TITLE */}
       <div className={styles.titleContainer}>
+
+        <h1 className={styles.title}>{gameState.gameName}</h1>
+
+        {/*
+        // ALLOW TITILE CHANGE?
         <input
           className={styles.title}
           type="text"
@@ -166,7 +179,7 @@ export default function Home() {
           placeholder={placeholdersVisible.title ? "Titre de l'impro" : ""}
           onFocus={() => handleInputFocus("title")}
           onBlur={() => handleInputBlur("title")}
-        />
+        /> */}
       </div>
 
       {/* BOTTOMCONTAINER BEGIN */}

@@ -18,9 +18,9 @@ export default function TabContent({ activeTab }: Props) {
       <div className={styles.zzzContainer}>
         {activeTab?.title === "break" && <p className={styles.zzz}>Zzz...</p>}
       </div>
-      <div className="logoContainer">
+      <div className={styles.logoContainer}>
         <img
-          className={logoStyle}
+          className={styles.logo}
           src={`../../src/images/${activeTab?.imageTitle}.webp`}
           alt={activeTab?.title}
         />
