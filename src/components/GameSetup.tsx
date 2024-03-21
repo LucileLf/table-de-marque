@@ -7,12 +7,17 @@
 import React, { useState, FormEvent } from 'react';
 import { GameInfo } from '../types';
 import { Team } from '../types'
+import { useGameState } from '../providers/GameStateProvider';
 
-type GameSetupProps = {
-    startGame: (gameInfo: GameInfo) => void;
-};
+// type GameSetupProps = {
+//     startGame: (gameInfo: GameInfo) => void;
+// };
 
-const GameSetup = ({startGame}: GameSetupProps) => {
+const GameSetup = () => {
+
+  const { startGame } = useGameState()
+
+
     const [formState, setFormState] = useState<GameInfo>({
       gameName: '',
       nbrOfTeams: 0,

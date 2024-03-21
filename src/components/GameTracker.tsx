@@ -1,8 +1,4 @@
 //GET ELEMENTS FROM GAMESTATE!
-
-
-
-
 import React, { useState, useEffect } from "react";
 import { FaFontAwesome } from "react-icons/fa";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
@@ -16,52 +12,65 @@ import penaltyNo from "../../src/images/penalty-dark.png";
 import GameOver from "./GameOver";
 import Colors from "../../constants/Colors";
 import { GameInfo, GameState, Team } from '../types'
+import { useGameState } from "../providers/GameStateProvider";
 
-interface GameTrackerProps {
-  gameState: GameState,
-  endGame: () => void;
-}
+// interface GameTrackerProps {
+//   gameState: GameState;
+//   setGameState: (updateFn: (currentState: GameState) => GameState) => void;
+//   endGame: () => void;
+// }
 
-export default function GameTracker({ gameState, endGame }: GameTrackerProps) {
+export default function GameTracker() {
+
+  const { gameState, endGame, updateScore, updatePenalty } = useGameState()
+
+console.log('hello from gametracker')
+  useEffect(() => {
+    console.log('GameTracker mounted');
+    return () => {
+      console.log('GameTracker will unmount');
+    };
+  }, []);
+
   const [time, setTime] = useState(50 * 60); // 50 minutes
   const [isRunning, setIsRunning] = useState(false);
   //const [placeholderVisible, setPlaceholderVisible] = useState(true);
-  const [placeholdersVisible, setPlaceholdersVisible] = useState({
-    title: true,
-    team1: true,
-    team2: true,
-  });
+  // const [placeholdersVisible, setPlaceholdersVisible] = useState({
+  //   title: true,
+  //   team1: true,
+  //   team2: true,
+  // });
 
   // console.log('game state from app', gameState);
 
 
-  const handleInputFocus = (inputType: string) => {
-    setPlaceholdersVisible((prevState) => ({
-      ...prevState,
-      [inputType]: false,
-    }));
-  };
+  // const handleInputFocus = (inputType: string) => {
+  //   setPlaceholdersVisible((prevState) => ({
+  //     ...prevState,
+  //     [inputType]: false,
+  //   }));
+  // };
 
-  const handleInputBlur = (inputType: string) => {
-    if (!title) {
-      setPlaceholdersVisible((prevState) => ({
-        ...prevState,
-        [inputType]: true,
-      }));
-    }
-  };
+  // const handleInputBlur = (inputType: string) => {
+  //   if (!title) {
+  //     setPlaceholdersVisible((prevState) => ({
+  //       ...prevState,
+  //       [inputType]: true,
+  //     }));
+  //   }
+  // };
 
-  const [team1, setTeam1] = useState<Team>({
-    name: "",
-    score: 0,
-    penalties: [false, false, false],
-  });
+  // const [team1, setTeam1] = useState<Team>({
+  //   name: "",
+  //   score: 0,
+  //   penalties: [false, false, false],
+  // });
 
-  const [team2, setTeam2] = useState<Team>({
-    name: "",
-    score: 0,
-    penalties: [false, false, false],
-  });
+  // const [team2, setTeam2] = useState<Team>({
+  //   name: "",
+  //   score: 0,
+  //   penalties: [false, false, false],
+  // });
 
   const [gameIsOver, setGameIsOver] = useState(false)
 
@@ -83,7 +92,7 @@ export default function GameTracker({ gameState, endGame }: GameTrackerProps) {
     const totalTimeInSeconds = minutes * 60 + seconds;
 
     if (totalTimeInSeconds === 0) {
-      return <GameOver winningTeam={team1} />;
+      return <GameOver winningTeam={gameState.teams[0]} />;
     } else if (totalTimeInSeconds > 30) {
       return `${minutes.toString().padStart(2, "0")}:${seconds
         .toString()
@@ -97,64 +106,71 @@ export default function GameTracker({ gameState, endGame }: GameTrackerProps) {
     setIsRunning((prevState) => !prevState);
   };
 
-  const updateScore = (team: Team, action: string) => {
-    let newScore = team.score;
-    if (action === "increase") {
-      newScore = ++team.score;
-    } else if (action === "decrease") {
-      newScore = --team.score;
-    }
-    if (team === team1) {
-      setTeam1({ ...team1, score: newScore });
-    } else if (team === team2) {
-      setTeam2({ ...team2, score: newScore });
-    }
-  };
+  // const updateScore = (teamIndex: number, action: 'increase' | 'decrease') => {
+  //   console.log('hello from updateScore')
+  //   setGameState((currentState) => {
+  //     console.log('setgamestate from updatescore')
+  //     const newTeams = [...currentState.teams];
+  //     if (action === "increase") {
+  //       newTeams[teamIndex].score += 1;
+  //     } else if (action === "decrease" && newTeams[teamIndex].score > 0) {
+  //       newTeams[teamIndex].score -= 1;
+  //     }
+  //     return { ...currentState, teams: newTeams };
+  //   });
+  // };
 
-  const handleImageClick = (team: Team, logoIndex: number) => {
-    if (team === team1) {
-      const newPenalties = team1.penalties.map((penalty, index) =>
-        index === logoIndex ? !penalty : penalty
-      );
-      const allTrue = newPenalties.every((penalty) => penalty === true);
-      if (allTrue) {
-        const finalPenalties = newPenalties.map(() => false);
-        setTeam1({ ...team1, penalties: finalPenalties });
-        updateScore(team2, "increase");
-      } else {
-        setTeam1({ ...team1, penalties: newPenalties });
-      }
-    } else if (team === team2) {
-      const newPenalties = team2.penalties.map((penalty, index) =>
-        index === logoIndex ? !penalty : penalty
-      );
-      const allTrue = newPenalties.every((penalty) => penalty === true);
-      if (allTrue) {
-        const finalPenalties = newPenalties.map(() => false);
-        setTeam2({ ...team2, penalties: finalPenalties });
-        updateScore(team1, "increase");
-      } else {
-        setTeam2({ ...team2, penalties: newPenalties });
-      }
-    }
-  };
+  // const handleImageClick = (teamIndex: number, penaltyIndex: number) => {
+  //   setGameState((prevState) => {
 
-  const renderPenaltyLogos = (team: Team) => {
-    const teamPenalties = team.penalties;
-    return teamPenalties.map((isPenalty, index) => (
-      <button
-        key={index}
-        className={styles.penaltyButton}
-        onClick={() => handleImageClick(team, index)}
-      >
-        <img
-          className={styles.penaltyLogo}
-          src={isPenalty ? penaltyYes : penaltyNo}
-          alt=""
-        />
-      </button>
-    ));
-  };
+  //     console.log('setgamestate from handleimageclik')
+  //     // Map through the teams to find the one to update
+  //     const updatedTeams = prevState.teams.map((team, index) => {
+  //       if (index === teamIndex) {
+  //         // Toggle the specific penalty status for this team
+  //         const updatedPenalties  = gameState.teams[teamIndex].penalties.map((penalty, index) =>
+  //           index === penaltyIndex ? !penalty : penalty
+  //         );
+  //         const allTrue = updatedPenalties.every((penalty) => penalty === true);
+  //         if (allTrue) {
+  //           // increase opponent score
+  //           if (teamIndex === 0) {
+  //             updateScore(1, 'increase')
+  //           } else if (teamIndex === 1) {
+  //             updateScore(0, 'increase')
+  //           }
+  //           // set all back to false
+  //           const finalPenalties = updatedPenalties.map(() => false);
+  //           return { ...team, penalties: finalPenalties  };
+  //         }
+  //         // Return a new team object with the updated penalties array
+  //         return { ...team, penalties: updatedPenalties  };
+  //       }
+  //       return team; // Return other teams unchanged
+  //     });
+  //     // Return the new state with the updated teams array
+  //     return { ...prevState, teams: updatedTeams };
+  //   });
+  // }
+  // const updateScore = (teamIndex: number, action: 'increase' | 'decrease') => {
+
+const renderPenaltyLogos = (team: Team, teamIndex: number) => {
+  return team.penalties.map((isPenalty, penaltyIndex) => (
+    <button
+      key={`${teamIndex}-${penaltyIndex}-${isPenalty}`}
+      className={styles.penaltyButton}
+      onClick={() => updatePenalty(teamIndex, penaltyIndex)} // Ensure correct indices are passed
+    >
+      <img
+        className={styles.penaltyLogo}
+        src={isPenalty ? penaltyYes : penaltyNo}
+        alt="Penalty Status"
+      />
+    </button>
+  ));
+};
+
+
 
   return (
     <div className={styles.mainContainer}>
@@ -187,21 +203,21 @@ export default function GameTracker({ gameState, endGame }: GameTrackerProps) {
         {/* TEAM1 SCORE + PENALTIES */}
         <div className={styles.scoreContainer}>
           <div className={styles.penaltyContainer}>
-            {renderPenaltyLogos(team1)}
+            {renderPenaltyLogos(gameState.teams[0], 0)}
           </div>
 
           {/* <div className={styles.pointsContainer}> */}
           <div className={styles.score}>
             <button
-              onClick={() => updateScore(team1, "increase")}
+              onClick={() => updateScore(0, "increase")}
               className={styles.arrowButton}
             >
               {/* <FaFontAwesome name="chevron-up" size={24} color={Colors.blue} /> */}
               <FaChevronUp size={"33%"} color={Colors.blue} />
             </button>
-            <p className={styles.scoreText}>{team1.score}</p>
+            <p className={styles.scoreText}>{gameState.teams[0].score}</p>
             <button
-              onClick={() => updateScore(team1, "decrease")}
+              onClick={() => updateScore(0, "decrease")}
               className={styles.arrowButton}
             >
               <FaChevronDown size={"33%"} color={Colors.blue} />
@@ -228,14 +244,14 @@ export default function GameTracker({ gameState, endGame }: GameTrackerProps) {
           {/* <div className={styles.pointsContainer}> */}
           <div className={styles.score}>
             <button
-              onClick={() => updateScore(team2, "increase")}
+              onClick={() => updateScore(1, "increase")}
               className={styles.arrowButton}
             >
               <FaChevronUp size={"33%"} color={Colors.blue} />
             </button>
-            <p className={styles.scoreText}>{team2.score}</p>
+            <p className={styles.scoreText}>{gameState.teams[1].score}</p>
             <button
-              onClick={() => updateScore(team2, "decrease")}
+              onClick={() => updateScore(1, "decrease")}
               className={styles.arrowButton}
             >
               <FaChevronDown size={"33%"} color={Colors.blue} />
@@ -244,7 +260,7 @@ export default function GameTracker({ gameState, endGame }: GameTrackerProps) {
           {/* </div> */}
 
           <div className={styles.penaltyContainer}>
-            {renderPenaltyLogos(team2)}
+            {renderPenaltyLogos(gameState.teams[1], 1)}
           </div>
         </div>
       </div>
@@ -252,6 +268,13 @@ export default function GameTracker({ gameState, endGame }: GameTrackerProps) {
 
       {/* TEAMNAMES CONTAINER BEGIN */}
       <div className={styles.teamNamesContainer}>
+
+        {gameState.teams.map((team) => {
+          return <h3 key={team.name} className={styles.teamName1}>{team.name}</h3>
+        })}
+
+        {/*
+        // ALLOW TEAM NAMES CHANGES??
         <input
           className={styles.teamName1}
           type="text"
@@ -261,8 +284,7 @@ export default function GameTracker({ gameState, endGame }: GameTrackerProps) {
           onFocus={() => handleInputFocus("team1")}
           onBlur={() => handleInputBlur("team1")}
         />
-        {/* <div className={styles.teamsNamesMargin}></div> */}
-
+        <div className={styles.teamsNamesMargin}></div>
         <input
           className={styles.teamName2}
           type="text"
@@ -272,6 +294,8 @@ export default function GameTracker({ gameState, endGame }: GameTrackerProps) {
           onFocus={() => handleInputFocus("team2")}
           onBlur={() => handleInputBlur("team2")}
         />
+        */}
+
       </div>
       {/* TEAMNAMES CONTAINER END */}
     </div>

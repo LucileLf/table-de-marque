@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import GameTracker from './components/GameTracker'
 import Navbar from './components/Navbar'
 import TabContent from './components/TabContent'
 import GameSetup from './components/GameSetup'
 import { GameInfo, GameState } from './types'
+import { useGameState } from './providers/GameStateProvider';
+
 
 export interface Tab {
   ref: string,
@@ -15,62 +17,86 @@ export interface Tab {
 const initialGameState: GameState = {
   gameName: '',
   nbrOfTeams: 0,
-  teams: [],
+  teams: [{
+    name: '',
+    score: 0,
+    penalties: [false, false, false],
+  }, {
+    name: '',
+    score: 0,
+    penalties: [false, false, false],
+  }],
   isOn: false,
 };
 
 
-export function App() {
-  // const tabtest: Tab = {
-  //   ref: 'hymnes',
-  //   title: 'Hymnes',
-  //   imageTitle: 'hymns'
-  // };
-  const [activeTab, setActiveTab] = useState<Tab | null>(null);
-  const [gameState, setGameState] = useState<GameState>(initialGameState);
+const App = () => {
 
-  console.log('gameState',gameState);
+  const [activeTab, setActiveTab] = useState<Tab | null>(null);
+  // const [gameState, setGameState] = useState<GameState>(initialGameState);
+  // localStorage.setItem('gameState', JSON.stringify(initialGameState));
+
+  // const [gameIsOn, setGameIsOn] = useState(false)
+
+  const initialGameInfo: GameInfo = {
+    gameName: '',
+    nbrOfTeams: 0,
+    teams: [{
+      name: '',
+      score: 0,
+      penalties: [false, false, false],
+    }, {
+      name: '',
+      score: 0,
+      penalties: [false, false, false],
+    }],
+  };
+
+  const { startGame, loadGame, gameState } = useGameState()
+
+  // useEffect(() => {
+  //   console.log('App mounted');
+  //   return () => {
+  //     console.log('App will unmount');
+  //   };
+  // }, []);
+
 
   useEffect(() => {
     const storedState = localStorage.getItem('gameState');
     if (storedState) {
+      console.log('fetching game state from local storage....')
       const parsedState: GameState = JSON.parse(storedState);
+      console.log('current game state is', parsedState)
       if (parsedState.isOn) {
-        setGameState(parsedState);
+        console.log('game is currently on')
+        // setGameIsOn(true)
+        loadGame(parsedState)
+        //fetch game state from browser: add function to provider (setGameState(parsedState);)
       }
     }
   }, []);
 
-  const startGame = (gameInfo: GameInfo): void => {
-    const newGameState = { ...gameInfo, isOn: true };
-    setGameState(newGameState);
-    console.log('from app', newGameState);
-    localStorage.setItem('gameState', JSON.stringify(newGameState));
-  };
-
-  const endGame = (): void => {
-    localStorage.removeItem('gameState');
-    setGameState(initialGameState);
-  };
-
-
 
   return (
+    // <GameStateProvider>
     <>
       {gameState.isOn ? (
         <>
-          <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
+          <Navbar activeTab={activeTab} setActiveTab={setActiveTab}/>
           {activeTab ? (
             <TabContent activeTab={activeTab} />
           ) : (
-            <GameTracker gameState={gameState} endGame={endGame} />
+            <GameTracker />
           )}
         </>
       ) : (
-        <GameSetup startGame={startGame} />
+        <GameSetup />
       )}
     </>
+    // </GameStateProvider>
   );
-};
 
-export default App
+
+}
+export default App;

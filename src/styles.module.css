@@ -1,5 +1,8 @@
 @import './colors.module.css';
 
+* {
+  margin: 0px
+}
   input::placeholder {
     color: white;
   }
@@ -21,54 +24,58 @@
         border: none;
     }
 
+
 /*GAME SETUP*/
 
-
-
 /* NAVBAR */
-.navbar {
+  .navbar {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    padding: 10px;
+    /* padding: 10px; */
     height: 10vh;
     width: 100vw;
-    /* border: '1px solid red'; */
-    position: fixed;
+    position: absolute;
     top: 0;
     background-color: var(--blue);
+    /* background-color: red; */
+    margin: 0;
+    position: relative;
   }
 
-  .navbarIcon {
+  /* .navbarIcon {
     padding: 10px;
     height: '100%';
-  }
+  } */
 
-  /* HOME */
+  /* GAMETRACKER */
 
   .mainContainer {
     background-color: var(--blue);
     height: 90vh;
     width: 100vw;
-    border: '1px solid green';
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 10vh;
+    /* margin-top: 10vh; */
+    /* top: 10vh; */
+    /* background-color: orange; */
   }
 
-
-  .logoContainer {
+  .logoContainer{
     height: 40%;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: var(--blue);
+    /* background-color: blue; */
+    /* top: 10vh; */
+    width: 100vw;
   }
 
   .homeLogo {
-    Height: 100%;
+    height: 100%;
   }
 
   .titleContainer {
@@ -76,80 +83,31 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* border: 1px solid green; */
+    /* background-color: green; */
+    z-index: 1000;
+    width: 100vw;
   }
+
+  .title {
+    color: white;
+    font-weight: bold;
+    font-size: 60px;
+    font-family: 'Cochin';
+    text-align: center;
+    background-color: var(--blue);
+  }
+
+
 
   .bottomContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    height: 30%;
-    background-color: var(--blue);
-    /* border: 1px solid red; */
-    padding: auto;
+    height: 35%;
+    border: 2px solid orange;
+    /* background-color: yellow; */
   }
-
-  .title {
-    color: white;
-    font-weight: bold;
-    font-size: 50px;
-    font-family: 'Cochin';
-    text-align: center;
-    background-color: var(--blue);
-  }
-
-  .timeContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 20%;
-    height: 100%;
-    flex: 1;
-    /* border: 1px solid yellow; */
-  }
-
-  .playIconContainer {
-    flex: 0.7;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 70%;
-    background-color: var(--blue);
-    /* background-color: white; */
-    outline: none;
-  }
-
-  .playIconContainer:hover {
-    border: none;
-    outline: none;
-  }
-
-
-  .playIcon {
-    /* border: 1px solid green; */
-    width: 60%;
-    /* height: 100%; */
-    aspect-ratio: 1;
-    opacity: 0.5;
-    outline: none;
-  }
-
-
-  .playIcon:hover {
-    border: none;
-    outline: none;
-  }
-
-  .time {
-    flex: 0.3;
-    color: white;
-    font-weight: bold;
-    font-size: 30px;
-    opacity: 0.5;
-  }
-
 
   .scoreContainer {
     display: flex;
@@ -157,17 +115,14 @@
     justify-content: space-evenly;
     width: 40%;
     height: 100%;
-    /* border: 1px solid green; */
   }
 
-  /* .pointsContainer {
-    display: flex;
-    justify-content: space-between;
-    height: 100%;
-    aspect-ratio: 1;
-    background-color: var(--blue);
-    /* border: 2px solid red;
-  }*/
+  .penaltyContainer {
+    max-height: '100%';
+    width: 30%;
+    /* border: 1px solid green; */
+    justify-content: space-evenly;
+  }
 
   .score {
     display: flex;
@@ -221,12 +176,66 @@
     bottom: 5px;
   }
 
-  .penaltyContainer {
-    max-height: '100%';
-    width: 30%;
-    /* border: 1px solid green; */
+  .timeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: space-evenly;
+    width: 20%;
+    height: 100%;
+    flex: 1;
+    border: 1px solid yellow;
+    position: relative;
   }
+
+  .playIconContainer {
+    flex: 0.7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    background-color: var(--blue);
+    outline: none;
+    top: 0px;
+  }
+
+  .playIconContainer:hover {
+    border: none;
+    outline: none;
+  }
+
+  .playIcon {
+    border: 1px solid green;
+    width: 60%;
+    /* height: 100%; */
+    aspect-ratio: 1;
+    opacity: 0.5;
+    outline: none;
+  }
+
+  .playIcon:hover {
+    border: none;
+    outline: none;
+  }
+
+  .time {
+    flex: 0.3;
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+    opacity: 0.5;
+  }
+
+
+  /* .pointsContainer {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    aspect-ratio: 1;
+    background-color: var(--blue);
+    /* border: 2px solid red;
+  }*/
+
 
   .penaltyButton {
     z-index: 1;
@@ -243,11 +252,17 @@
   }
 
   .teamNamesContainer {
+    background-color: var(--blue);
     display: flex;
-    justify-content: space-between;
-    margin: 0 8%;
-    height: 20%;
+    justify-content: space-evenly;
+    /* margin: 0 8%; */
+    height: 15%;
+    /* height: 18vh; */
     flex-direction: row;
+    background-color: gray;
+    /* position: absolute;
+    top: 74vh; */
+    z-index: 1000;
   }
 
   .teamName1, .teamName2 {
@@ -256,12 +271,13 @@
     font-size: 60px;
     max-width: 50%;
     background-color: var(--blue);
-    /* border: 1px solid yellow; */
+    border: 1px solid yellow;
+    flex: 1;
+    text-align: center;
   }
 
   .teamName2 {
     /* border: 1px solid yellow; */
-    text-align: right;
   }
 /*
   .teamsNamesMargin {
@@ -281,15 +297,14 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    margin-top: 10vh;
   }
 
-  .logoContainer {
+  .TabContentLogoContainer {
     align-items: center;
     justify-content: center;
   }
 
-  .logo {
+  .TabContentLogo {
     /* width: 300px; */
     height: 100%;
     width: auto;
@@ -300,13 +315,13 @@
     transform: rotate(28deg);
   }
 
-  .titleContainer {
+  .TabContentTitleContainer {
     height: 30%;
     align-items: center;
     justify-content: center;
   }
 
-  /* .title {
+  /* .TabContentTitle {
     color: white;
     font-size: large;
     font-weight: bolder;

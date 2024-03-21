@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:clear": "rm -f /path/to/localStorageFile && npm run dev",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },

@@ -18,16 +18,16 @@ export default function TabContent({ activeTab }: Props) {
       <div className={styles.zzzContainer}>
         {activeTab?.title === "break" && <p className={styles.zzz}>Zzz...</p>}
       </div>
-      <div className={styles.logoContainer}>
+      <div className={styles.TabContentLogoContainer}>
         <img
-          className={styles.logo}
+          className={styles.TabContentLogo}
           src={`../../src/images/${activeTab?.imageTitle}.webp`}
           alt={activeTab?.title}
         />
         {/* <p className="getStartedText">Open up the code for this screen:</p> */}
       </div>
-      <div className={styles.titleContainer}>
-        <p className={styles.title}>{activeTab?.title}</p>
+      <div className={styles.TabContentTitleContainer}>
+        <p className={styles.TabContentTitle}>{activeTab?.title}</p>
       </div>
     </div>
   );
