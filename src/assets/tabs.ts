@@ -4,7 +4,7 @@ import styles from '../styles.module.css';
 
 const tab1: Tab = {
   ref: 'home',
-  title: 'Attention... on joue bientôt !',
+  title: 'Attention...',
   imageTitle: 'attention'
 };
 const tab2: Tab = {

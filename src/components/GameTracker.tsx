@@ -177,7 +177,7 @@ const renderPenaltyLogos = (team: Team, teamIndex: number) => {
       {/* LOGO */}
       <div className={styles.logoContainer}>
         <img className={styles.homeLogo} src={logoPath} alt="Logo" />
-        <button onClick={endGame} style={{color: 'red'}}>TERMINER LA PARTIE</button>
+        {/* <button onClick={endGame} style={{color: 'red'}}>TERMINER LA PARTIE</button> */}
       </div>
 
       {/* TITLE */}
