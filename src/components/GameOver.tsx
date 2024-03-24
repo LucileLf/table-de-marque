@@ -27,7 +27,7 @@ const GameOver = ({ winningTeam }: Props) => {
       {/* LOGO */}
       <div className={styles.gameOverLogoContainer}>
         <img className={styles.gameOverLogo} src={logoPath} alt="Logo" />
-        <button onClick={() => handleClick()} style={{color: 'red'}}>NOUVELLE PARTIE</button>
+        <button className={styles.newGameBtn} onClick={() => handleClick()} style={{color: 'white', fontWeight: 'bold'}}>NOUVELLE PARTIE</button>
       </div>
     </div>
   );
