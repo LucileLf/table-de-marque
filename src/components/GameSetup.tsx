@@ -8,6 +8,7 @@ import React, { useState, FormEvent } from 'react';
 import { GameInfo } from '../types';
 import { Team } from '../types'
 import { useGameState } from '../providers/GameStateProvider';
+import styles from "../styles.module.css";
 
 // type GameSetupProps = {
 //     startGame: (gameInfo: GameInfo) => void;
@@ -21,7 +22,8 @@ const GameSetup = () => {
     const [formState, setFormState] = useState<GameInfo>({
       gameName: '',
       nbrOfTeams: 0,
-      teams: []
+      teams: [],
+      winningTeam: null
     });
 
     const handleGameNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,19 +57,21 @@ const GameSetup = () => {
 
 
       return (
-        <form onSubmit={handleSubmit}>
-          <div>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <div className={styles.formInput}>
             <label htmlFor="gameName">Titre de la partie:</label>
             <input
+              className={`${styles.formInput} ${styles.formInputField}`}
               type="text"
               id="gameName"
               value={formState.gameName}
               onChange={handleGameNameChange}
             />
           </div>
-          <div>
+          <div className={styles.formInput}>
             <label htmlFor="nbrOfTeams">Combien d'équipes?</label>
             <input
+              className={`${styles.formInput} ${styles.formInputField}`}
               type="number"
               id="nbrOfTeams"
               value={formState.nbrOfTeams}
@@ -76,9 +80,10 @@ const GameSetup = () => {
           </div>
           {formState.nbrOfTeams && (
             formState.teams.map((team, index) => (
-              <div key={index}>
+              <div className={styles.formInput} key={index}>
                 <label htmlFor={`teamName-${index}`}>Team {index + 1} Name:</label>
                 <input
+                  className={`${styles.formInput} ${styles.formInputField}`}
                   type="text"
                   id={`teamName-${index}`}
                   value={team.name}
@@ -87,12 +92,12 @@ const GameSetup = () => {
               </div>
             ))
           )}
-          <button type="submit">Start Game</button>
+          <button  className={`${styles.formInput} ${styles.formInputField}`} type="submit">Start Game</button>
         </form>
       );
 };
 
-const styles = {
-};
+// const styles = {
+// };
 
 export default GameSetup;

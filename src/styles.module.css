@@ -27,6 +27,36 @@
 
 /*GAME SETUP*/
 
+.form{
+  background-color: var(--blue);
+  /* height: 68vh; */
+  height: auto;
+  overflow: scroll;
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid white;
+  padding-bottom: 2vh;
+  border-radius: 1vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.formInput{
+  font-size: 40px;
+  color: white;
+  margin: 2vh;
+  border-radius: 1vh;
+}
+
+.formInputField{
+  color: black;
+}
+
 /* NAVBAR */
   .navbar {
     display: flex;
@@ -95,6 +125,7 @@
     font-family: 'Cochin';
     text-align: center;
     background-color: var(--blue);
+    width: 100%;
   }
 
 
@@ -337,3 +368,45 @@
     right: 10%;
     top: 10%;
   }
+
+
+  /*GAME OVER*/
+.gameOverMainContainer {
+  background-color: var(--blue);
+  height: "90vh";
+  justify-content: "space-between";
+  z-index: 10000;
+}
+
+.winnerContainer {
+  height: 20vh;
+  /* background-color: green; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  /* border: 1px solid yellow; */
+}
+
+.winner {
+  color: white;
+  font-weight: bold;
+  font-size: 70px;
+  font-family: "Cochin";
+}
+
+.gameOverLogoContainer{
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: blue; */
+  /* top: 10vh; */
+  width: 100vw;
+}
+
+
+.gameOverLogo{
+  height: 100%;
+}

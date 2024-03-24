@@ -17,14 +17,17 @@ import { useGameState } from "../providers/GameStateProvider";
 // interface GameTrackerProps {
 //   gameState: GameState;
 //   setGameState: (updateFn: (currentState: GameState) => GameState) => void;
-//   endGame: () => void;
+//   clearGame: () => void;
 // }
 
 export default function GameTracker() {
 
-  const { gameState, endGame, updateScore, updatePenalty } = useGameState()
+  const { gameState, clearGame, updateScore, updatePenalty, setTitle, setTeamName, endGame } = useGameState()
 
 console.log('hello from gametracker')
+console.log(gameState);
+
+
   useEffect(() => {
     console.log('GameTracker mounted');
     return () => {
@@ -34,31 +37,37 @@ console.log('hello from gametracker')
 
   const [time, setTime] = useState(50 * 60); // 50 minutes
   const [isRunning, setIsRunning] = useState(false);
-  //const [placeholderVisible, setPlaceholderVisible] = useState(true);
-  // const [placeholdersVisible, setPlaceholdersVisible] = useState({
-  //   title: true,
-  //   team1: true,
-  //   team2: true,
-  // });
+
+
+  // const [placeholderVisible, setPlaceholderVisible] = useState(true);
+  const [placeholdersVisible, setPlaceholdersVisible] = useState({
+    title: true,
+    team1: true,
+    team2: true,
+  });
 
   // console.log('game state from app', gameState);
 
+  type PlaceholderKeys = 'title' | 'team1' | 'team2';
 
-  // const handleInputFocus = (inputType: string) => {
-  //   setPlaceholdersVisible((prevState) => ({
-  //     ...prevState,
-  //     [inputType]: false,
-  //   }));
-  // };
+  const handleInputFocus = (inputType: PlaceholderKeys) => {
+    console.log('hello handleInputFocus');
+    console.log('is placeholder visible?', placeholdersVisible[inputType]);
+    setPlaceholdersVisible((prevState) => ({
+      ...prevState,
+      [inputType]: false
+    }));
+    console.log('is placeholder visible?', placeholdersVisible[inputType]);
+  };
 
-  // const handleInputBlur = (inputType: string) => {
-  //   if (!title) {
-  //     setPlaceholdersVisible((prevState) => ({
-  //       ...prevState,
-  //       [inputType]: true,
-  //     }));
-  //   }
-  // };
+  const handleInputBlur = (inputType: PlaceholderKeys) => {
+    // if (!title) {
+      setPlaceholdersVisible((prevState) => ({
+        ...prevState,
+        [inputType]: false
+      }));
+    // }
+  };
 
   // const [team1, setTeam1] = useState<Team>({
   //   name: "",
@@ -90,9 +99,9 @@ console.log('hello from gametracker')
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
     const totalTimeInSeconds = minutes * 60 + seconds;
-
     if (totalTimeInSeconds === 0) {
-      return <GameOver winningTeam={gameState.teams[0]} />;
+      const winningTeam = endGame();
+      // return <GameOver winningTeam={winningTeam} />
     } else if (totalTimeInSeconds > 30) {
       return `${minutes.toString().padStart(2, "0")}:${seconds
         .toString()
@@ -154,48 +163,49 @@ console.log('hello from gametracker')
   // }
   // const updateScore = (teamIndex: number, action: 'increase' | 'decrease') => {
 
-const renderPenaltyLogos = (team: Team, teamIndex: number) => {
-  return team.penalties.map((isPenalty, penaltyIndex) => (
-    <button
-      key={`${teamIndex}-${penaltyIndex}-${isPenalty}`}
-      className={styles.penaltyButton}
-      onClick={() => updatePenalty(teamIndex, penaltyIndex)} // Ensure correct indices are passed
-    >
-      <img
-        className={styles.penaltyLogo}
-        src={isPenalty ? penaltyYes : penaltyNo}
-        alt="Penalty Status"
-      />
-    </button>
-  ));
-};
+  const renderPenaltyLogos = (team: Team, teamIndex: number) => {
+    return team.penalties.map((isPenalty, penaltyIndex) => (
+      <button
+        key={`${teamIndex}-${penaltyIndex}-${isPenalty}`}
+        className={styles.penaltyButton}
+        onClick={() => updatePenalty(teamIndex, penaltyIndex)} // Ensure correct indices are passed
+      >
+        <img
+          className={styles.penaltyLogo}
+          src={isPenalty ? penaltyYes : penaltyNo}
+          alt="Penalty Status"
+        />
+      </button>
+    ));
+  };
 
-
+  const handleClick = (gameState: GameState) => {
+    endGame();
+    console.log('winning teams is ', gameState.winningTeam);
+  }
 
   return (
     <div className={styles.mainContainer}>
       {/* LOGO */}
       <div className={styles.logoContainer}>
         <img className={styles.homeLogo} src={logoPath} alt="Logo" />
-        {/* <button onClick={endGame} style={{color: 'red'}}>TERMINER LA PARTIE</button> */}
+        <button onClick={() => handleClick(gameState)} style={{color: 'red'}}>TERMINER LA PARTIE</button>
       </div>
 
       {/* TITLE */}
       <div className={styles.titleContainer}>
 
-        <h1 className={styles.title}>{gameState.gameName}</h1>
+        {/* <h1 className={styles.title}>{gameState.gameName}</h1> */}
 
-        {/*
-        // ALLOW TITILE CHANGE?
         <input
           className={styles.title}
           type="text"
-          value={title}
+          // value={gameState.gameName}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder={placeholdersVisible.title ? "Titre de l'impro" : ""}
+          placeholder={placeholdersVisible.title ? gameState.gameName : ""}
           onFocus={() => handleInputFocus("title")}
           onBlur={() => handleInputBlur("title")}
-        /> */}
+        />
       </div>
 
       {/* BOTTOMCONTAINER BEGIN */}
@@ -269,9 +279,19 @@ const renderPenaltyLogos = (team: Team, teamIndex: number) => {
       {/* TEAMNAMES CONTAINER BEGIN */}
       <div className={styles.teamNamesContainer}>
 
-        {gameState.teams.map((team) => {
-          return <h3 key={team.name} className={styles.teamName1}>{team.name}</h3>
-        })}
+        {gameState.teams.map((team, index) => (
+          // return <h3 key={team.name} className={styles.teamName1}>{team.name}</h3>
+           <input
+            key={index}
+            className={styles.teamName1}
+            type="text"
+            value={team.name}
+            onChange={(e) => setTeamName(team, e.target.value)}
+            placeholder={placeholdersVisible.team1 ? "Equipe 1" : ""}
+            onFocus={() => handleInputFocus("team1")}
+            onBlur={() => handleInputBlur("team1")}
+          />
+        ))}
 
         {/*
         // ALLOW TEAM NAMES CHANGES??

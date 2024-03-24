@@ -9,6 +9,7 @@ export type GameInfo = {
     gameName: string;
     nbrOfTeams: number;
     teams: Team[];
+    winningTeam: Team |  null
 };
 
 

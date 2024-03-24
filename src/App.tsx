@@ -5,14 +5,13 @@ import TabContent from './components/TabContent'
 import GameSetup from './components/GameSetup'
 import { GameInfo, GameState } from './types'
 import { useGameState } from './providers/GameStateProvider';
-
+import GameOver from './components/GameOver'
 
 export interface Tab {
   ref: string,
   title: string,
   imageTitle: string
 }
-
 
 const initialGameState: GameState = {
   gameName: '',
@@ -26,9 +25,9 @@ const initialGameState: GameState = {
     score: 0,
     penalties: [false, false, false],
   }],
+  winningTeam: null,
   isOn: false,
 };
-
 
 const App = () => {
 
@@ -50,9 +49,11 @@ const App = () => {
       score: 0,
       penalties: [false, false, false],
     }],
+    winningTeam: null,
   };
 
-  const { startGame, loadGame, gameState } = useGameState()
+  const { startGame, loadGame, gameState, clearGame } = useGameState()
+  // clearGame()
 
   // useEffect(() => {
   //   console.log('App mounted');
@@ -77,26 +78,19 @@ const App = () => {
     }
   }, []);
 
+  console.log('gamestate', gameState);
 
   return (
-    // <GameStateProvider>
-    <>
-      {gameState.isOn ? (
-        <>
-          <Navbar activeTab={activeTab} setActiveTab={setActiveTab}/>
-          {activeTab ? (
-            <TabContent activeTab={activeTab} />
-          ) : (
-            <GameTracker />
-          )}
-        </>
-      ) : (
-        <GameSetup />
-      )}
-    </>
-    // </GameStateProvider>
+    gameState.isOn ? (
+      <>
+        <Navbar activeTab={activeTab} setActiveTab={setActiveTab}/>
+        { activeTab ? <TabContent activeTab={activeTab} /> :
+          (gameState.winningTeam ? <GameOver winningTeam={gameState.winningTeam} /> : <GameTracker />)
+        }
+      </>
+    ) :
+    <GameSetup />
   );
-
 
 }
 export default App;
