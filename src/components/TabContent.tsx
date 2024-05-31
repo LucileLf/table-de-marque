@@ -21,14 +21,14 @@ export default function TabContent({ activeTab }: Props) {
       <div className={styles.TabContentLogoContainer}>
         <img
           className={styles.TabContentLogo}
-          src={`../../src/images/${activeTab?.imageTitle}.webp`}
+          src={`../../src/images/${activeTab?.imageTitle}.png`}
           alt={activeTab?.title}
         />
         {/* <p className="getStartedText">Open up the code for this screen:</p> */}
       </div>
-      <div className={styles.TabContentTitleContainer}>
+      {/* <div className={styles.TabContentTitleContainer}>
         <p className={styles.TabContentTitle}>{activeTab?.title}</p>
-      </div>
+      </div> */}
     </div>
   );
 }
