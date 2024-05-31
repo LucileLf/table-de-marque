@@ -2,6 +2,7 @@ import React from "react";
 import { Tab } from "../App";
 import Colors from "../../constants/Colors";
 import styles from "../styles.module.css";
+// import penaltyNo from "../../src/images/penalty-dark.png";
 
 interface Props {
   activeTab: Tab | null;
@@ -21,7 +22,7 @@ export default function TabContent({ activeTab }: Props) {
       <div className={styles.TabContentLogoContainer}>
         <img
           className={styles.TabContentLogo}
-          src={`@images/${activeTab?.imageTitle}.png`}
+          src={`../../src/images/${activeTab?.imageTitle}.png`}
           alt={activeTab?.title}
         />
         {/* <p className="getStartedText">Open up the code for this screen:</p> */}

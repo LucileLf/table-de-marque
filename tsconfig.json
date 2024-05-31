@@ -15,11 +15,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "./src", // Specify the base directory
+    "baseUrl": "./src",
     "paths": {
-      "@components/*": ["components/*"], // Example custom path mapping
-      "@utils/*": ["utils/*"],
-      "@images/*": ["images/*"],
+      "@assets/*": ["assets/*"],
+      "@components/*": ["components/*"],
+      "@images/*": ["images/*"]
     }
   },
   "include": ["src"],
