@@ -21,7 +21,7 @@ export default function TabContent({ activeTab }: Props) {
       <div className={styles.TabContentLogoContainer}>
         <img
           className={styles.TabContentLogo}
-          src={`../../src/images/${activeTab?.imageTitle}.png`}
+          src={`@images/${activeTab?.imageTitle}.png`}
           alt={activeTab?.title}
         />
         {/* <p className="getStartedText">Open up the code for this screen:</p> */}
