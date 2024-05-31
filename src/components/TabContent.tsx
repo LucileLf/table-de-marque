@@ -2,28 +2,31 @@ import React from "react";
 import { Tab } from "../App";
 import Colors from "../../constants/Colors";
 import styles from "../styles.module.css";
-// import penaltyNo from "../../src/images/penalty-dark.png";
+import images from "../../src/images/images";
 
 interface Props {
   activeTab: Tab | null;
 }
 
 export default function TabContent({ activeTab }: Props) {
+  if (!activeTab) {
+    return null; // Return null if activeTab is null
+  }
   const logoStyle = [
     "logo",
-    activeTab?.title === "break" ? styles.rotatedLogo : null,
+    activeTab.title === "break" ? styles.rotatedLogo : null,
   ].join(" ");
 
   return (
     <div className={styles.tabContentContainer}>
       <div className={styles.zzzContainer}>
-        {activeTab?.title === "break" && <p className={styles.zzz}>Zzz...</p>}
+        {activeTab.title === "break" && <p className={styles.zzz}>Zzz...</p>}
       </div>
       <div className={styles.TabContentLogoContainer}>
         <img
           className={styles.TabContentLogo}
-          src={`../../src/images/${activeTab?.imageTitle}.png`}
-          alt={activeTab?.title}
+          src={images[activeTab.imageTitle]}
+          alt={activeTab.title}
         />
         {/* <p className="getStartedText">Open up the code for this screen:</p> */}
       </div>
