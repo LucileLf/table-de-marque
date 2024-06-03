@@ -588,4 +588,21 @@
     display: block;
     margin: 0 auto;
   }
+
+  .gameOverLogoContainer {
+    /* display: block; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gameOverLogo{
+    max-width: 100%;
+    height: auto;
+  }
+  .newGameBtn {
+    height: 10vh;
+    font-size: xx-large;
+  }
 }

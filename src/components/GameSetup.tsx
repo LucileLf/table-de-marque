@@ -18,29 +18,32 @@ const GameSetup = () => {
 
   const { startGame } = useGameState()
 
-
     const [formState, setFormState] = useState<GameInfo>({
       gameName: '',
-      nbrOfTeams: 0,
-      teams: [],
+      nbrOfTeams: 2, //O
+      teams: [ //[]
+      { name: '', score: 0, penalties: [false, false, false] },
+      { name: '', score: 0, penalties: [false, false, false] }
+      ],
       winningTeam: null
     });
+
 
     const handleGameNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFormState((prev) => ({ ...prev, gameName: event.target.value }));
         console.log('form state', formState.gameName);
       };
 
-    const handleNrbOfTeamsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newNbrOfTeams = parseInt(event.target.value) || 0;
-      setFormState((prev) => {
-        let newTeams = prev.teams.slice(0, newNbrOfTeams);
-        while (newTeams.length < newNbrOfTeams) {
-          newTeams.push({ name: '', score: 0, penalties: [false, false, false] });
-        }
-        return { ...prev, nbrOfTeams: newNbrOfTeams, teams: newTeams };
-      });
-    };
+    // const handleNrbOfTeamsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //   const newNbrOfTeams = parseInt(event.target.value) || 0;
+    //   setFormState((prev) => {
+    //     let newTeams = prev.teams.slice(0, newNbrOfTeams);
+    //     while (newTeams.length < newNbrOfTeams) {
+    //       newTeams.push({ name: '', score: 0, penalties: [false, false, false] });
+    //     }
+    //     return { ...prev, nbrOfTeams: newNbrOfTeams, teams: newTeams };
+    //   });
+    // };
 
       const handleTeamNameChange = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
         const updatedTeams = formState.teams.map((team, idx) =>
@@ -52,6 +55,7 @@ const GameSetup = () => {
       const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
         // Validate your form as needed
+        setFormState(prev => ({ ...prev, nbrOfTeams: 2 }));
         if (formState.nbrOfTeams < 2) {
           alert("Il faut au moins 2 équipes !");
           return; // Prevent form submission
@@ -72,7 +76,8 @@ const GameSetup = () => {
               onChange={handleGameNameChange}
             />
           </div>
-          <div className={styles.formInput}>
+{/* NBR OF TEAMS */}
+          {/* <div className={styles.formInput}>
             <label htmlFor="nbrOfTeams">Combien d'équipes?</label>
             <input
               className={`${styles.formInput} ${styles.formInputField}`}
@@ -95,7 +100,30 @@ const GameSetup = () => {
                 />
               </div>
             ))
-          )}
+          )}*/}
+
+          <div className={styles.formInput}>
+            <label htmlFor='teamName-0'>Team 1 Name:</label>
+            <input
+              className={`${styles.formInput} ${styles.formInputField}`}
+              type="text"
+              id={'teamName-0'}
+              value={formState.teams[0]?.name}
+              onChange={handleTeamNameChange(0)}
+            />
+          </div>
+          <div className={styles.formInput}>
+            <label htmlFor='teamName-1'>Team 2 Name:</label>
+            <input
+              className={`${styles.formInput} ${styles.formInputField}`}
+              type="text"
+              id={'teamName-1'}
+              value={formState.teams[1]?.name}
+              onChange={handleTeamNameChange(1)}
+            />
+          </div>
+
+
           <button  className={`${styles.formInput} ${styles.formInputField}`} type="submit">Start Game</button>
         </form>
       );

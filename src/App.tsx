@@ -53,7 +53,7 @@ const App = () => {
   };
 
   const { startGame, loadGame, gameState, clearGame } = useGameState()
-  // clearGame()
+
 
   // useEffect(() => {
   //   console.log('App mounted');
