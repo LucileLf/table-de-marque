@@ -17,12 +17,17 @@ const GameOver = ({ winningTeam }: Props) => {
   const handleClick = () => {
     clearGame();
   }
+
   return (
     <div className={styles.gameOverMainContainer}>
       {/* TITLE */}
       <div className={styles.winnerContainer}>
         <p className={styles.winner}>C'est fini !</p>
-        <p className={styles.winner}>{winningTeam ? `Bravo ${winningTeam.name} !!!` : 'Egalité !'}</p>
+          {winningTeam && winningTeam.score > 0 ? (
+            <p className={styles.winner}>Bravo {winningTeam.name} !!!</p>
+          ) : (
+            <p className={styles.winner}>Égalité !</p>
+          )}
       </div>
       {/* LOGO */}
       <div className={styles.gameOverLogoContainer}>

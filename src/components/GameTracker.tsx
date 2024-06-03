@@ -24,8 +24,8 @@ export default function GameTracker() {
 
   const { gameState, clearGame, updateScore, updatePenalty, setTitle, setTeamName, endGame } = useGameState()
 
-console.log('hello from gametracker')
-console.log(gameState);
+  console.log('hello from gametracker')
+  console.log(gameState);
 
 
   useEffect(() => {
@@ -193,7 +193,7 @@ console.log(gameState);
       </div>
 
       {/* TITLE */}
-      <div className={styles.titleContainer}>
+      <div className={styles.titleContainer}> {/* 10% */}
 
         {/* <h1 className={styles.title}>{gameState.gameName}</h1> */}
 
@@ -209,7 +209,7 @@ console.log(gameState);
       </div>
 
       {/* BOTTOMCONTAINER BEGIN */}
-      <div className={styles.bottomContainer}>
+      <div className={styles.bottomContainer}> {/* 35% */}
         {/* TEAM1 SCORE + PENALTIES */}
         <div className={styles.scoreContainer}>
           <div className={styles.penaltyContainer}>
@@ -250,7 +250,7 @@ console.log(gameState);
         </div>
 
         {/* TEAM2 SCORE + PENALTIES */}
-        <div className={styles.scoreContainer}>
+        <div className={styles.scoreContainer} id={styles.scoreContainerTeam2}>
           {/* <div className={styles.pointsContainer}> */}
           <div className={styles.score}>
             <button
@@ -276,14 +276,27 @@ console.log(gameState);
       </div>
       {/* BOTTOMCONTAINER END */}
 
+
+      <div className={styles.timeContainerMobile}>
+          <button onClick={toggleTimer} className={styles.playIconContainerMobile}>
+            <img
+              src={isRunning ? pauseIconPath : playIconPath}
+              className={styles.playIconMobile}
+              alt=""
+            />
+          </button>
+          <p className={styles.timeMobile}>{formatTime()}</p>
+      </div>
+
+
       {/* TEAMNAMES CONTAINER BEGIN */}
-      <div className={styles.teamNamesContainer}>
+      <div className={styles.teamNamesContainer}>  {/* 15% */}
 
         {gameState.teams.map((team, index) => (
           // return <h3 key={team.name} className={styles.teamName1}>{team.name}</h3>
            <input
             key={index}
-            className={styles.teamName1}
+            className={styles.teamName}
             type="text"
             value={team.name}
             onChange={(e) => setTeamName(team, e.target.value)}
@@ -316,6 +329,10 @@ console.log(gameState);
         />
         */}
 
+      </div>
+
+      <div className={styles.endGameButton}>
+        <button onClick={() => handleClick(gameState)} style={{color: 'red'}}>TERMINER LA PARTIE</button>
       </div>
       {/* TEAMNAMES CONTAINER END */}
     </div>

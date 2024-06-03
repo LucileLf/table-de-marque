@@ -8,19 +8,21 @@ interface Props {
   activeTab: Tab | null;
 }
 
+
 export default function TabContent({ activeTab }: Props) {
   if (!activeTab) {
     return null; // Return null if activeTab is null
   }
-  const logoStyle = [
-    "logo",
-    activeTab.title === "break" ? styles.rotatedLogo : null,
-  ].join(" ");
+  // const logoStyle = [
+  //   "logo",
+  //   activeTab.title === "break" ? styles.rotatedLogo : null,
+  // ].join(" ");
 
   return (
     <div className={styles.tabContentContainer}>
       <div className={styles.zzzContainer}>
-        {activeTab.title === "break" && <p className={styles.zzz}>Zzz...</p>}
+        {activeTab.ref === "break" && <p className={styles.zzz}>Zzz...</p>}
+
       </div>
       <div className={styles.TabContentLogoContainer}>
         <img
@@ -30,9 +32,9 @@ export default function TabContent({ activeTab }: Props) {
         />
         {/* <p className="getStartedText">Open up the code for this screen:</p> */}
       </div>
-      {/* <div className={styles.TabContentTitleContainer}>
+      <div className={styles.TabContentTitleContainer}>
         <p className={styles.TabContentTitle}>{activeTab?.title}</p>
-      </div> */}
+      </div>
     </div>
   );
 }

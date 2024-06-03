@@ -52,6 +52,10 @@ const GameSetup = () => {
       const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
         // Validate your form as needed
+        if (formState.nbrOfTeams < 2) {
+          alert("Il faut au moins 2 équipes !");
+          return; // Prevent form submission
+        }
         startGame(formState);
       };
 
