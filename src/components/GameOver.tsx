@@ -19,9 +19,9 @@ const GameOver = ({ winningTeam }: Props) => {
   }
 
   return (
-    <div className={styles.gameOverMainContainer}>
+    <div className={styles.gameOverMainContainer}> {/* 90vh */}
       {/* TITLE */}
-      <div className={styles.winnerContainer}>
+      <div className={styles.winnerContainer}>{/* 20vh */}
         <p className={styles.winner}>C'est fini !</p>
           {winningTeam && winningTeam.score > 0 ? (
             <p className={styles.winner}>Bravo {winningTeam.name} !!!</p>
@@ -30,8 +30,11 @@ const GameOver = ({ winningTeam }: Props) => {
           )}
       </div>
       {/* LOGO */}
-      <div className={styles.gameOverLogoContainer}>
+      <div className={styles.gameOverLogoContainer}>{/* 60vh */}
         <img className={styles.gameOverLogo} src={logoPath} alt="Logo" />
+        {/* <button className={styles.newGameBtn} onClick={() => handleClick()} style={{color: 'white', fontWeight: 'bold'}}>NOUVELLE PARTIE</button> */}
+      </div>
+      <div className={styles.endGameButtonContainer}> {/* 5vh */}
         <button className={styles.newGameBtn} onClick={() => handleClick()} style={{color: 'white', fontWeight: 'bold'}}>NOUVELLE PARTIE</button>
       </div>
     </div>

@@ -28,31 +28,31 @@ const tab5: Tab = {
   imageTitle: 'votes'
 };
 
-const tab6: Tab = {
-  ref: 'penalty',
-  title: 'Pénalité !',
-  imageTitle: 'penalty'
-};
-const tab7: Tab = {
-  ref: 'exclusion',
-  title: 'Expulsion !',
-  imageTitle: 'exclusion'
-};
+// const tab6: Tab = {
+//   ref: 'penalty',
+//   title: 'Pénalité !',
+//   imageTitle: 'penalty'
+// };
+// const tab7: Tab = {
+//   ref: 'exclusion',
+//   title: 'Expulsion !',
+//   imageTitle: 'exclusion'
+// };
 
-const tab8: Tab = {
-  ref: 'fusillade',
-  title: 'Fusillade !',
-  imageTitle: 'fusillade'
-};
-const tab9: Tab = {
-  ref: 'podium',
-  title: 'Podium',
-  imageTitle: 'podium'
-};
+// const tab8: Tab = {
+//   ref: 'fusillade',
+//   title: 'Fusillade !',
+//   imageTitle: 'fusillade'
+// };
+// const tab9: Tab = {
+//   ref: 'podium',
+//   title: 'Podium',
+//   imageTitle: 'podium'
+// };
 
 interface Props {
   activeTab: Tab | null;
   setActiveTab: (tab: Tab) => void;
 }
 
-export const tabs = [tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9];
+export const tabs = [tab1, tab2, tab3, tab4, tab5];

@@ -1,6 +1,5 @@
 import React from "react";
 import { Tab } from "../App";
-import Colors from "../../constants/Colors";
 import styles from "../styles.module.css";
 import images from "../../src/images/images";
 
@@ -20,10 +19,10 @@ export default function TabContent({ activeTab }: Props) {
 
   return (
     <div className={styles.tabContentContainer}>
-      <div className={styles.zzzContainer}>
+      {/* <div className={styles.zzzContainer}>
         {activeTab.ref === "break" && <p className={styles.zzz}>Zzz...</p>}
 
-      </div>
+      </div> */}
       <div className={styles.TabContentLogoContainer}>
         <img
           className={styles.TabContentLogo}

@@ -9,6 +9,7 @@ import { GameInfo } from '../types';
 import { Team } from '../types'
 import { useGameState } from '../providers/GameStateProvider';
 import styles from "../styles.module.css";
+import logoPath from "../../src/images/tail.png";
 
 // type GameSetupProps = {
 //     startGame: (gameInfo: GameInfo) => void;
@@ -103,7 +104,7 @@ const GameSetup = () => {
           )}*/}
 
           <div className={styles.formInput}>
-            <label htmlFor='teamName-0'>Team 1 Name:</label>
+            <label htmlFor='teamName-0'>Equipe 1 :</label>
             <input
               className={`${styles.formInput} ${styles.formInputField}`}
               type="text"
@@ -113,7 +114,7 @@ const GameSetup = () => {
             />
           </div>
           <div className={styles.formInput}>
-            <label htmlFor='teamName-1'>Team 2 Name:</label>
+            <label htmlFor='teamName-1'>Equipe 2 :</label>
             <input
               className={`${styles.formInput} ${styles.formInputField}`}
               type="text"
@@ -123,8 +124,10 @@ const GameSetup = () => {
             />
           </div>
 
-
-          <button  className={`${styles.formInput} ${styles.formInputField}`} type="submit">Start Game</button>
+          <button  className={`${styles.formInput} ${styles.formInputField}`} type="submit">Commencer</button>
+          <div className={styles.setupLogoContainer}>
+            <img className={styles.setupLogo} src={logoPath} alt="Logo" />
+          </div>
         </form>
       );
 };

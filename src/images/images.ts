@@ -1,6 +1,6 @@
 import attentionImage from "../../src/images/attention.webp";
 import hymnImage from "../../src/images/hymns.webp";
-import caucusImage from "../../src/images/caucus.webp";
+import caucusImage from "../../src/images/caucus.png";
 import breakImage from "../../src/images/break.webp";
 import votesImage from "../../src/images/votes.webp";
 import penaltyImage from "../../src/images/penalty.webp";
