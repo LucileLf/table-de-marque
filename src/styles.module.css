@@ -99,8 +99,8 @@
   }
 
   .homeLogo {
-    height: 100%;
-    aspect-ratio: 1;
+    height: 10vh;
+    /* aspect-ratio: 1; */
     cursor: pointer;
     /* -webkit-transform: scaleX(-1); */
     /* transform: scaleY(-1); */
